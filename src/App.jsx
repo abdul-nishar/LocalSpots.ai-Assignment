@@ -1,18 +1,16 @@
 import { useState, useRef } from "react";
 
 import Header from "./components/Header";
-// import { fetchFoodItems, fetchOrderRequest } from "./http";
-// import { useFetch } from "../src/hooks/useFetch";
-import { foodItems } from "./assets/meals";
 import CartModal from "./components/CartModal";
 import CheckoutModal from "./components/CheckoutModal";
 import OrderSuccessModal from "./components/OrderSuccessModal";
-import Meals from "./components/Meals";
+import Clothes from "./components/Clothes";
 import LandingPage from "./components/LandingPage";
+import { fetchClothingItems, fetchOrderRequest } from "./http.js";
+import { useFetch } from "./hooks/useFetch";
 
 function App() {
-  // const { fetchedData: foodItems } = useFetch(fetchFoodItems, []);
-
+  const { fetchedData: clothingItems } = useFetch(fetchClothingItems, []);
   const [cartItems, setCartItems] = useState([]);
   const cartModalDialog = useRef();
   const checkoutModalDialog = useRef();
@@ -50,9 +48,6 @@ function App() {
     );
     const existingCartItem = updatedCartItems[existingItemIndex];
     if (existingCartItem.quantity <= 1) {
-      // updatedCartItems = updatedCartItems.filter(
-      //   (cartItem) => cartItem.id !== existingCartItem.id
-      // );
       updatedCartItems.splice(existingItemIndex, 1);
     } else {
       const updatedItem = {
@@ -76,20 +71,28 @@ function App() {
   async function handleOrderSubmit(event) {
     event.preventDefault();
     const fd = new FormData(event.target);
-    let order = {};
-    order.customer = Object.fromEntries(fd.entries());
+    
+    const order = {
+      customer: Object.fromEntries(fd.entries()),
+      items: cartItems.map((item) => ({
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+    };
 
     event.target.reset();
 
-    order.items = cartItems.map((item) => ({
-      name: item.name,
-      quantity: item.quantity,
-      price: item.price,
-    }));
-    // await fetchOrderRequest(order);
+    try {
+      const response = await fetchOrderRequest(order);
+      alert(response.message);
 
-    checkoutModalDialog.current.close();
-    orderSuccessModalDialog.current.open();
+      checkoutModalDialog.current.close();
+      orderSuccessModalDialog.current.open();
+    } catch (error) {
+      console.error("Error submitting order:", error);
+      alert("Failed to submit order. Please try again.");
+    }
   }
 
   function handleResetCart() {
@@ -98,7 +101,7 @@ function App() {
   }
 
   function revealAnimation() {
-    var reveals = document.querySelectorAll(".meal-item");
+    var reveals = document.querySelectorAll(".clothing-item");
 
     for (var i = 0; i < reveals.length; i++) {
       var windowHeight = window.innerHeight;
@@ -135,7 +138,7 @@ function App() {
       />
       <Header items={cartItems.length} openModal={handleCartModal} />
       <LandingPage></LandingPage>
-      <Meals foodItems={foodItems} openMeals={handleCartItems} />
+      <Clothes clothingItems={clothingItems} openClothes={handleCartItems} />
     </>
   );
 }

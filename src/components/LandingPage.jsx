@@ -4,16 +4,14 @@ export default function LandingPage() {
   return (
     <div className="landing-page">
       <h1>
-        Experience Culinary Harmony: FoodFusion, Where Every Bite is a Symphony!
+        Step Into Style: Aesthetic, Where Fashion Becomes Art.
       </h1>
       <h4>
-        FoodFusion is a culinary symphony that blends flavors and cultures,
-        ensuring every bite is an explosion of taste and texture. We prioritize
-        sustainability, sourcing ingredients responsibly and minimizing food
-        waste. FoodFusion offers a unique gastronomic journey, where traditional
-        recipes meet modern twists and global influences. We offer special
-        promotions and events, offering unbeatable prices on new flavors and
-        favorites. Experience culinary harmony with FoodFusion.
+        Aesthetic is your destination for curated fashion that blends classic styles with modern trends. 
+        We prioritize quality, sustainability, and individuality, offering pieces that are both timeless 
+        and versatile. Our collections celebrate creativity and craftsmanship, ensuring every outfit 
+        tells a story. Enjoy exclusive promotions, seasonal trends, and unbeatable prices on wardrobe 
+        essentials and statement pieces. Redefine your style with Aesthetic, where fashion is an art form.
       </h4>
       <div className="container">
         <input

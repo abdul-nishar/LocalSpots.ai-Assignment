@@ -52,7 +52,7 @@ const CheckoutModal = forwardRef(function CheckoutModal(
           </div>
         </div>
         <div className="modal-actions">
-          <DefaultBtn2
+          <DefaultBtn1
             onClick={(event) => {
               const form = document.getElementById("checkout-form");
               form.reset();
@@ -61,8 +61,8 @@ const CheckoutModal = forwardRef(function CheckoutModal(
             }}
           >
             Close
-          </DefaultBtn2>
-          <DefaultBtn1 type="submit">Submit Order</DefaultBtn1>
+          </DefaultBtn1>
+          <DefaultBtn2 type="submit">Submit Order</DefaultBtn2>
         </div>
       </form>
     </DefaultModal>

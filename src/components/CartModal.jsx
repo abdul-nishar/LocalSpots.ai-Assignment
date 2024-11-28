@@ -21,7 +21,12 @@ const CartModal = forwardRef(function CartModal(
               <div className="cart-item-actions">
                 <button onClick={() => decItem(item)}>-</button>
                 <span>{item.quantity}</span>
-                <button onClick={() => incItem(item)}>+</button>
+                <button
+                  onClick={() => incItem(item)}
+                  disabled={item.quantity >= item.stock}  // Disable button if quantity reaches stock
+                >
+                  +
+                </button>
               </div>
             </li>
           ))}
@@ -48,10 +53,10 @@ const CartModal = forwardRef(function CartModal(
                 .toFixed(2)}
             </div>
             <div className="modal-actions">
-              <DefaultBtn2 onClick={() => ref.current.close()}>
+              <DefaultBtn1 onClick={() => ref.current.close()}>
                 Close
-              </DefaultBtn2>
-              <DefaultBtn1 onClick={openCheckout}>Go to Checkout</DefaultBtn1>
+              </DefaultBtn1>
+              <DefaultBtn2 onClick={openCheckout}>Go to Checkout</DefaultBtn2>
             </div>
           </>
         )}

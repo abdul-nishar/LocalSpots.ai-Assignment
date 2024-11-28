@@ -1,5 +1,5 @@
-export async function fetchFoodItems() {
-  const response = await fetch("http://localhost:3000/meals");
+export async function fetchClothingItems() {
+  const response = await fetch("http://localhost:3000/clothes");
   const resData = await response.json();
 
   return resData;

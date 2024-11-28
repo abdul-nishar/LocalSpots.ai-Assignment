@@ -15,13 +15,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/meals", async (req, res) => {
-  const meals = await fs.readFile("./data/available-meals.json", "utf8");
-  res.json(JSON.parse(meals));
+app.get("/clothes", async (req, res) => {
+  const clothes = await fs.readFile("./data/clothing-items.json", "utf8");
+  res.json(JSON.parse(clothes));
 });
 
 app.post("/orders", async (req, res) => {
   const orderData = req.body.order;
+
   if (
     orderData === null ||
     orderData.items === null ||
@@ -52,9 +53,12 @@ app.post("/orders", async (req, res) => {
     ...orderData,
     id: (Math.random() * 1000).toString(),
   };
+
   const orders = await fs.readFile("./data/orders.json", "utf8");
-  const allOrders = JSON.parse(orders);
+
+  const allOrders = orders.trim() === "" ? [] : JSON.parse(orders);
   allOrders.push(newOrder);
+  
   await fs.writeFile("./data/orders.json", JSON.stringify(allOrders));
   res.status(201).json({ message: "Order created!" });
 });
@@ -67,4 +71,8 @@ app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
 
-app.listen(3000);
+const PORT = 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

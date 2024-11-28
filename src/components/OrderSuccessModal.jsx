@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 
 import DefaultModal from "./DefaultModal";
-import DefaultBtn1 from "./DefaultButton1";
+import DefaultBtn2 from "./DefaultButton2";
 
 const OrderSuccessModal = forwardRef(function OrderSuccessModal(
   { resetCart },
@@ -16,7 +16,7 @@ const OrderSuccessModal = forwardRef(function OrderSuccessModal(
         minutes.
       </p>
       <div className="modal-actions">
-        <DefaultBtn1 onClick={resetCart}>Okay</DefaultBtn1>
+        <DefaultBtn2 onClick={resetCart}>Okay</DefaultBtn2>
       </div>
     </DefaultModal>
   );
